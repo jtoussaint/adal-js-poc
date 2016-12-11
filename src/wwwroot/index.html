@@ -9,70 +9,7 @@
     <body>
         <h1>Static file from ASP.NET Core!</h1>
 
-        <div id="timestamp"></div>
-
-        <button onclick="onLogin()">Login</button>
-
-        <button onclick="onButtonClick()">Click Me!</button>
-
-        <button onclick="onDebugUserClick()">Get Current User</button>
-
-        <button onclick="onClearUserDebugClick()">Clear User Debug</button>
-
-        <pre id="currentUserJson"></pre>
-
         <div id="container"></div>
-
-        <script type="text/javascript">
-            window.config = {
-                instance: 'https://login.microsoftonline.com/',
-                tenant: '57138e6e-9629-4661-86e3-1e31e09c4d12',
-                clientId: '5f1de639-3137-44d8-b63e-479b0a6584ac',
-                postLogoutRedirectUri: window.location.origin,
-                cacheLocation: 'localStorage', // enable this for IE, as sessionStorage does not work for localhost.
-            };
-
-            var authContext = new AuthenticationContext(config);
-
-            authContext.handleWindowCallback();
-
-            $("#timestamp").text(new Date());
-
-            function onClearUserDebugClick() {
-                $("#currentUserJson").html("");
-            }
-
-            function onDebugUserClick() {
-                var user = authContext.getCachedUser();
-                $("#currentUserJson").html(JSON.stringify(user, undefined, 2));
-            }
-
-            function onLogin() {
-                authContext.login();
-            }
-
-            function onButtonClick() {
-                console.log("Click");
-
-                authContext.acquireToken('5f1de639-3137-44d8-b63e-479b0a6584ac', function(error, token) {
-                    
-                    if(error || !token) {
-                        console.log(error);
-                        return;
-                    }
-
-                    $.ajax({
-                        method:'GET',
-                        url:'/api/values/5',
-                        headers: {
-                            Authorization: 'Bearer ' + token
-                        }
-                    }).done(function(result) {
-
-                    });
-                });
-            }
-        </script>
 
         <script src='scripts/app-common.js'></script>                
         <script src='scripts/app-bundle.js'></script>         
