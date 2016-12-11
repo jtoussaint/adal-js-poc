@@ -6,6 +6,6 @@ const config = {
     cacheLocation: 'localStorage', // enable this for IE, as sessionStorage does not work for localhost.
 };
 
-const authContext = new AuthenticationContext(config);
+let authContext = new AuthenticationContext(config);
 
 export default authContext;

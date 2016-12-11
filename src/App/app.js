@@ -1,15 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+
 import components from 'components';
+import pages from './pages';
+import {default as Reducers} from './reducers';
 
-import core from 'core';
-
-console.log(components);
+//TODO: Need to fix the admin reducers
+const store = createStore(
+  Reducers
+);
 
 ReactDOM.render(
-    <div>
-        <components.Timestamp/>
-    </div>,
+    <Provider store={store}>
+        <pages.Home/>
+    </Provider>,
     document.getElementById('container')
 );

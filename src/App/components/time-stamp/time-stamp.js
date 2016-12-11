@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Timestamp = ({}) => {
+export const TimeStamp = ({}) => {
     const now = new Date();
 
     return (

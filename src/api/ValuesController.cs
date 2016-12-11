@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Adal
 {
+    [Authorize]
     [Route("api/values")]
     public class ValuesController : Controller
     {
