@@ -2,8 +2,55 @@
 <html>
     <head>
         <script src='https://secure.aadcdn.microsoftonline-p.com/lib/1.0.13/js/adal.min.js'></script>
+        <script src='https://code.jquery.com/jquery-3.1.1.min.js'
+                integrity='sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8='
+                crossorigin='anonymous'></script>
     </head>
     <body>
         <h1>Static fie from ASP.NET Core!</h1>
+
+        <button onclick="onLogin()">Login</button>
+
+        <button onclick="onButtonClick()">Click Me!</button>
+
+        <script type="text/javascript">
+            window.config = {
+                instance: 'https://login.microsoftonline.com/',
+                tenant: '57138e6e-9629-4661-86e3-1e31e09c4d12',
+                clientId: '5f1de639-3137-44d8-b63e-479b0a6584ac',
+                postLogoutRedirectUri: window.location.origin,
+                cacheLocation: 'localStorage', // enable this for IE, as sessionStorage does not work for localhost.
+            };
+
+            var authContext = new AuthenticationContext(config);
+
+            authContext.handleWindowCallback();
+
+            function onLogin() {
+                authContext.login();
+            }
+
+            function onButtonClick() {
+                console.log("Click");
+
+                authContext.acquireToken('5f1de639-3137-44d8-b63e-479b0a6584ac', function(error, token) {
+                    
+                    if(error || !token) {
+                        console.log(error);
+                        return;
+                    }
+
+                    $.ajax({
+                        method:'GET',
+                        url:'/api/values/5',
+                        headers: {
+                            Authorization: 'Bearer ' + token
+                        }
+                    }).done(function(result) {
+
+                    });
+                });
+            }
+        </script>
     </body>
 </html>

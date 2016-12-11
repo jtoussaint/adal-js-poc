@@ -1,4 +1,5 @@
 using System;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -24,11 +25,19 @@ namespace Adal
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddAuthentication();
         }
 
         public void Configure(IApplicationBuilder app)
         {
             app.UseStaticFiles();
+
+            app.UseJwtBearerAuthentication(new JwtBearerOptions 
+            {
+                Audience = Configuration["AzureAd:Audience"],                
+                Authority = String.Format(Configuration["AzureAd:AadInstance"], Configuration["AzureAD:Tenant"])
+            });
 
             app.UseMvc();
         }
