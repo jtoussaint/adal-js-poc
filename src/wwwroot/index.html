@@ -9,6 +9,8 @@
     <body>
         <h1>Static fie from ASP.NET Core!</h1>
 
+        <div id="timestamp"></div>
+
         <button onclick="onLogin()">Login</button>
 
         <button onclick="onButtonClick()">Click Me!</button>
@@ -25,6 +27,8 @@
             var authContext = new AuthenticationContext(config);
 
             authContext.handleWindowCallback();
+
+            $("#timestamp").text(new Date());
 
             function onLogin() {
                 authContext.login();
