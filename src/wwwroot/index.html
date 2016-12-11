@@ -7,13 +7,19 @@
                 crossorigin='anonymous'></script>
     </head>
     <body>
-        <h1>Static fie from ASP.NET Core!</h1>
+        <h1>Static file from ASP.NET Core!</h1>
 
         <div id="timestamp"></div>
 
         <button onclick="onLogin()">Login</button>
 
         <button onclick="onButtonClick()">Click Me!</button>
+
+        <button onclick="onDebugUserClick()">Get Current User</button>
+
+        <button onclick="onClearUserDebugClick()">Clear User Debug</button>
+
+        <pre id="currentUserJson"></pre>
 
         <script type="text/javascript">
             window.config = {
@@ -29,6 +35,15 @@
             authContext.handleWindowCallback();
 
             $("#timestamp").text(new Date());
+
+            function onClearUserDebugClick() {
+                $("#currentUserJson").html("");
+            }
+
+            function onDebugUserClick() {
+                var user = authContext.getCachedUser();
+                $("#currentUserJson").html(JSON.stringify(user, undefined, 2));
+            }
 
             function onLogin() {
                 authContext.login();
